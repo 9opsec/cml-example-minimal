@@ -18,7 +18,7 @@ jobs:
 
           echo "${{ github.event_name }}"
           
-          if [ "${{ github.event_name }}" == "pull_request" ]; then
+          if [ "${{ github.event_name }}" == "push" ]; then
             cml comment create report.md
           else
             echo "Not a pull request event. Saving report as an artifact."
