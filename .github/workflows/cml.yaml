@@ -14,6 +14,15 @@ jobs:
           # Create CML report
           cat metrics.txt >> report.md
           echo '![](./plot.png "Confusion Matrix")' >> report.md
-          cml comment create report.md
+          # cml comment create report.md
+
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            cml comment create report.md
+          else
+            echo "Not a pull request event. Saving report as an artifact."
+            mkdir -p artifacts
+            cp report.md artifacts/
+
+          
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
