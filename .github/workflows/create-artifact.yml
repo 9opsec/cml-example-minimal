@@ -30,6 +30,7 @@ jobs:
               # else            
               echo "Saving report as an artifact."
               mkdir -p artifacts
+              echo "Directory created"
               # cp report.md artifacts/
               cp ./plot.png artifacts/
               # fi
