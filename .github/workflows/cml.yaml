@@ -22,7 +22,7 @@ jobs:
             echo "Not a pull request event. Saving report as an artifact."
             mkdir -p artifacts
             cp report.md artifacts/
-
+          fi
           
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
