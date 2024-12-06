@@ -10,13 +10,18 @@ jobs:
             name: cml-report
             path: artifacts/
       - run: |
-            # if [ "${{ github.event_name }}" == "pull_request" ]; then
-            #   cml comment create report.md
-            # else            
+              pip install -r requirements.txt
+              python train.py  # generate plot.png      
+              cat metrics.txt >> report.md              
+              echo '![](./plot.png "Confusion Matrix")' >> report.md            
+              
+              # if [ "${{ github.event_name }}" == "pull_request" ]; then
+              #   cml comment create report.md
+              # else            
               echo "Saving report as an artifact."
               mkdir -p artifacts
               cp report.md artifacts/
-            # fi
+              # fi
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
