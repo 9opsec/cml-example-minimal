@@ -1,5 +1,12 @@
 name: Create matrix image
-on: [workflow_dispatch]
+on:
+  schedule:    
+    - cron: '5 * * * *'
+    #- cron: '*/55 * * * *'    old    
+    # https://crontab.guru/
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
 jobs:
   train-and-report:
     runs-on: ubuntu-latest
