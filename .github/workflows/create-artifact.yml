@@ -5,10 +5,19 @@ jobs:
     runs-on: ubuntu-latest
     container: docker://ghcr.io/iterative/cml:0-dvc2-base1
     steps:
-      - uses: actions/upload-artifact@v3
-        with:
-            name: cml-report
-            path: artifacts/
+
+      # Step 1: Checkout repository
+      - name: Checkout repository, install reqs, train, generate report
+        uses: actions/checkout@v3
+      - run: |
+          pip install -r requirements.txt
+          python train.py  # generate plot.png
+          # Create CML report
+          cat metrics.txt >> report.md
+          echo '![](./plot.png "Confusion Matrix")' >> report.md
+          
+      # Step 2: Upload artifact
+      - name: Upload artifact
       - run: |
               pip install -r requirements.txt
               python train.py  # generate plot.png      
