@@ -1,0 +1,25 @@
+name: Create matrix image
+on: [workflow_dispatch]
+jobs:
+  train-and-report:
+    runs-on: ubuntu-latest
+    container: docker://ghcr.io/iterative/cml:0-dvc2-base1
+    steps:
+      - uses: actions/upload-artifact@v3
+        with:
+            name: cml-report
+            path: artifacts/
+      - run: |
+            # if [ "${{ github.event_name }}" == "pull_request" ]; then
+            #   cml comment create report.md
+            # else            
+              echo "Saving report as an artifact."
+              mkdir -p artifacts
+              cp report.md artifacts/
+            # fi
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
+          
